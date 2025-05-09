@@ -1,7 +1,8 @@
 import { Inject, Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
+import { Movie } from '../components/home/home.component';
 
 @Injectable({
   providedIn: 'root'
@@ -11,16 +12,15 @@ private apiUrl = "https://api.themoviedb.org/3/movie/"
 private apiKey="eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3NmJkNzA4ZmJiNTM1NTU2YjdiZDVhNmNmYWM4YzBkNyIsIm5iZiI6MTc0NjYxNzQ0NS43NTksInN1YiI6IjY4MWI0NDY1NzcyOTIwNDA2NjlmMDQwMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.qL7BoehEDs8kVMo1oKoLp6V4OVYwbWuRKqh74bHIVag"
   constructor(private http: HttpClient) { }
 
-  getMovies(page:number = 1) : Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/now_playing`, {
-      headers: {
-        Authorization: `Bearer ${this.apiKey}`
-      },
+  getMovies(lang:string = "en-US" , page: number = 1): Observable<any[]> {
+    return this.http.get<{ results: Movie[] }>(`${this.apiUrl}/now_playing`, {
+      headers: { Authorization: `Bearer ${this.apiKey}` },
       params: {
-        page : page
+        page: page,
+        language :lang
       }
     }).pipe(
-      catchError(this.handleError)
+      catchError(this.handleError), map((response) =>response.results)
     )
   }
 

@@ -1,24 +1,51 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { NavbarComponent } from '../navbar/navbar.component';
-import { RouterOutlet } from '@angular/router';
+import { Component, OnInit } from '@angular/core';;
 import { HomeDataService } from './../../services/home-data.service';
+import { Observable, tap } from 'rxjs';
+
+export interface Movie {
+  id: number;
+  title: string;
+  overview: string;
+  poster_path: string;
+  backdrop_path: string;
+  release_date: string;
+  vote_average: number;
+}
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule,RouterOutlet],
-templateUrl: './home.component.html',
+  imports: [CommonModule],
+  templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent implements OnInit {
 
-  constructor(private HomeDataService: HomeDataService) { }
-  ngOnInit(): void {
-    this.HomeDataService.getMovies().subscribe({
+export class HomeComponent {
+  movies$ !: Observable<Movie[]>;
+  pageNumber: number = 1;
+  count !: number;
+  maxVisiblePages : number = 5;
 
-      next:(data)=>{ console.log(data);},
-      error: (error)=>{console.log(error.massage);
-      }
+  constructor(private HomeDataService: HomeDataService) {
+    this.movies$ = this.HomeDataService.getMovies().pipe(
+      tap((movies$: Movie[]) => {
+        console.log(movies$);
+        this.count = movies$.length+1;
       })
+    )
   }
+  changePage(page: number, count: number) {
+    this.pageNumber = page;
+    if (page < 1) {
+      this.movies$ = this.HomeDataService.getMovies("en-US", 1)
+    } else if (page > count + 1) {
+      this.movies$ = this.HomeDataService.getMovies("en-US", count + 1)
+    } else {
+      this.movies$ = this.HomeDataService.getMovies("en-US", page)
+     }
+  }
+
+
+
+
 }

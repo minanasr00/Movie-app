@@ -1,0 +1,99 @@
+.search{
+  padding: 3rem;
+    margin: 0 auto;
+    width: 100%;
+
+  background-color: #F3F1F1;
+  h1{
+    font-family: sans-serif;
+    font-weight: 600;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+}
+.search p{
+  font-family: sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  margin-bottom: 2rem;
+}
+
+.movie-list h2{
+  font-family: sans-serif;
+  font-weight: 600;
+  font-size: 2rem;
+}
+
+.rating{
+  background-color:rgb(1, 22, 7) ;
+  top: -30px;
+  left: 5px;
+  width: 3rem;
+  height: 3rem;
+  box-sizing: content-box;
+  border: 2px solid #049023;
+}
+
+
+.movie-container{
+  flex-wrap: wrap
+}
+
+.card{
+  min-height: 400px;
+}
+
+.wish-listIcon:hover{
+  cursor: pointer;
+}
+
+
+
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.page-item {
+  list-style: none;
+}
+
+.page-link {
+  padding: 0.5rem 1rem;
+  border: 1px solid #dee2e6;
+  border-radius: 0.25rem;
+  color: #007bff;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.page-link:hover {
+  background-color: #e9ecef;
+}
+
+.page-item.active .page-link {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+.page-item.disabled .page-link {
+  color: #6c757d;
+  cursor: not-allowed;
+  background-color: #fff;
+  border-color: #dee2e6;
+}
+
+@media (max-width: 576px) {
+  .pagination {
+    gap: 0.25rem;
+  }
+
+  .page-link {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.875rem;
+  }
+}
