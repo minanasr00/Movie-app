@@ -34,7 +34,8 @@ export class HomeComponent {
       })
     )
   }
-  changePage(page: number, count: number) {
+  changePage(page: number, count: number, li: HTMLLIElement) {
+    li.classList.add('.page-item.active');
     this.pageNumber = page;
     if (page < 1) {
       this.movies$ = this.HomeDataService.getMovies("en-US", 1)
@@ -45,7 +46,13 @@ export class HomeComponent {
      }
   }
 
+  addToWishlist(i:HTMLElement,id:number) {
+    i.classList.toggle('text-warning');
+  }
 
+  getMovieDetails(id: number) {
+    console.log(id);
 
+  }
 
 }

@@ -3,11 +3,10 @@
     <h1 >Welcome to our movie app</h1>
     <p>Millions of movies, TV shows and people to discover. Explore now.</p>
     <div class="input-group mb-3">
-      <input type="text" class="form-control py-2 px-3 border-warning shadow-none"  placeholder=""  placeholder="Search and explore...." aria-describedby="button-addon1">
-      <button class="btn btn-warning ms-3 border-1" type="button" id="button-addon1">Button</button>
+      <input type="text" class="form-control py-2 px-3 border-warning shadow-none" placeholder="Search and explore....">
+      <button class="btn btn-warning ms-3 border-1" type="button" id="">Search</button>
     </div>
   </div>
-
   <div class="movie-list mt-5">
     <h2 class="mb-2">Now Playing</h2>
     <p class="text-center fs-2 fw-bold mb-5">Page :  <span class="text-warning">{{pageNumber}}</span>  </p>
@@ -15,13 +14,13 @@
       @if(movies$ |async; as movies ){
         @for ( movie of movies; track movie.id ) {
           <div class="col-xl-2 col-lg-3 col-md-4 col-sm-12 movie-card">
-            <div class="card mb-3 rounded-5">
+            <div class="card mb-3 rounded-5" (click)="getMovieDetails(movie.id)">
               <img [src]='"https://image.tmdb.org/t/p/original"+movie.poster_path' class="card-img-top" [alt]="movie.overview">
               <div class="card-body position-relative">
                 <div class="mt-2 d-flex justify-content-between">
                   <h5 class="card-title">{{movie.title}}</h5>
                   <span class="wish-listIcon">
-                    <i class="bi bi-heart-fill fs-4"></i>
+                    <i class="bi bi-heart-fill fs-4" #i (click)="addToWishlist(i,movie.id)"></i>
                   </span>
                 </div>
                 <p class="card-text text-muted">{{movie.release_date}}</p>
@@ -37,14 +36,14 @@
   <nav aria-label="Page navigation example">
     <ul class="pagination justify-content-center">
       <li class="page-item">
-        <a class="page-link" (click)="changePage(pageNumber-1,count)"> << </a>
+        <a class="page-link" (click)="changePage(pageNumber-1,count,li)"> << </a>
       </li>
       @for ( i of movies$ |async; track i.id ;) {
-          <li  class="page-item"><a #a class="page-link" (click)="changePage($index+1,$count)"  >{{$index+1}}</a></li>
+          <li #li class="page-item"><a #a class="page-link" (click)="changePage($index+1,$count,li)"  >{{$index+1}}</a></li>
       }
 
-      <li class="page-item">
-        <a class="page-link" (click)="changePage(pageNumber+1,count)" >>></a>
+      <li #li class="page-item">
+        <a class="page-link" (click)="changePage(pageNumber+1,count,li)" >>></a>
       </li>
     </ul>
   </nav>
