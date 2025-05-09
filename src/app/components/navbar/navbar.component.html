@@ -1,1 +1,15 @@
-<p>navbar works!</p>
+<nav id="navbar-example2" class="navbar bg-warning px-3 mb-3">
+  <a class="navbar-brand" routerLink=''>movieApp</a>
+  <ul class="nav nav-pills d-flex align-items-center">
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle text-black" data-bs-toggle="dropdown"  role="button" aria-expanded="false">language</a>
+      <ul class="dropdown-menu border border-warning bg-warning">
+        <li><a class="dropdown-item">us</a></li>
+        <li><a class="dropdown-item">ar</a></li>
+      </ul>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link text-black" routerLink="/wish-list" ><i class="bi bi-heart-fill fs-4 me-1"></i><span class="fs-5">watchlist</span></a>
+    </li>
+  </ul>
+</nav>
