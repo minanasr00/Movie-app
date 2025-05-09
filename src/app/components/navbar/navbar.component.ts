@@ -8,5 +8,8 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
+  language !: string;
 
+  constructor() {
+  }
 }

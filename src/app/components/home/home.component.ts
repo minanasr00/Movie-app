@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';;
+import { Component, OnInit, viewChild } from '@angular/core';;
 import { HomeDataService } from './../../services/home-data.service';
 import { Observable, tap } from 'rxjs';
+import { NavbarComponent } from '../navbar/navbar.component';
 
 export interface Movie {
   id: number;
@@ -24,23 +25,28 @@ export class HomeComponent {
   movies$ !: Observable<Movie[]>;
   pageNumber: number = 1;
   count !: number;
-  maxVisiblePages : number = 5;
+  language !: string
 
   constructor(private HomeDataService: HomeDataService) {
     this.movies$ = this.HomeDataService.getMovies().pipe(
       tap((movies$: Movie[]) => {
         console.log(movies$);
-        this.count = movies$.length+1;
+        this.count = movies$.length;
       })
     )
   }
   changePage(page: number, count: number, li: HTMLLIElement) {
     li.classList.add('.page-item.active');
+    if (page < 1) {
+      page = 1;
+    } else if (page > count) {
+      page = count;
+    }
     this.pageNumber = page;
     if (page < 1) {
       this.movies$ = this.HomeDataService.getMovies("en-US", 1)
     } else if (page > count + 1) {
-      this.movies$ = this.HomeDataService.getMovies("en-US", count + 1)
+      this.movies$ = this.HomeDataService.getMovies("en-US", count)
     } else {
       this.movies$ = this.HomeDataService.getMovies("en-US", page)
      }

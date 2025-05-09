@@ -39,7 +39,7 @@
         <a class="page-link" (click)="changePage(pageNumber-1,count,li)"> << </a>
       </li>
       @for ( i of movies$ |async; track i.id ;) {
-          <li #li class="page-item"><a #a class="page-link" (click)="changePage($index+1,$count,li)"  >{{$index+1}}</a></li>
+          <li #li class="page-item"><a #a class="page-link" (click)="changePage($index+1,count,li)"  >{{$index+1}}</a></li>
       }
 
       <li #li class="page-item">
