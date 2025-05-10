@@ -12,7 +12,10 @@
 
     <!-- Details -->
     <div class="col-md-8">
-      <h2>{{ movieDetails?.title }}</h2>
+      <div class="d-flex justify-between">
+        <h2 class="me-5">{{ movieDetails?.title }}</h2>
+        <i class="bi fs-4 ms-5"  [ngClass]="isInWishlist(movieDetails.id) ? 'bi-heart-fill text-warning' : 'bi-heart'" (click)="toggleWishlist(movieDetails.id)"></i>
+      </div>
       <p class="text-muted">{{ movieDetails?.release_date }}</p>
       <div class="mb-2">
         <span class="me-2">⭐</span> {{ movieDetails?.vote_average }} ({{

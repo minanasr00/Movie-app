@@ -3,20 +3,22 @@ import { MovieService } from '../../services/movie.service';
 import { Movie1 } from '../../interfaces/movie';
 import { Observable, forkJoin } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { HomeDataService } from '../../services/home-data.service';
+import { Router } from '@angular/router';
 
 
 @Component({
   selector: 'app-wish-list',
   standalone: true,
   imports: [CommonModule,],
-  templateUrl: './wish-list.component.html',
+templateUrl: './wish-list.component.html',
   styleUrls: ['./wish-list.component.css']
 })
 export class WishlistComponent implements OnInit {
   movies: Movie1[] = [];
   isEmpty: boolean = true;
 
-  constructor(private movieService: MovieService) {}
+  constructor(private movieService: MovieService,private homeservice : HomeDataService, private Router :Router) {}
 
   ngOnInit(): void {
     this.loadWishlist();
@@ -47,4 +49,10 @@ export class WishlistComponent implements OnInit {
     this.movies = this.movies.filter(movie => movie.id !== movieId);
     this.isEmpty = this.movies.length === 0;
   }
+
+ getMovieDetails(id: number) {
+    console.log(id);
+    this.Router.navigate(['/movie', id]);
+  }
+
 }

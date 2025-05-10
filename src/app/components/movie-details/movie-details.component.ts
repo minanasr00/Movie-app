@@ -1,8 +1,10 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { HomeDataService } from './../../services/home-data.service';
 import { CommonModule } from '@angular/common';
+import { MovieService } from '../../services/movie.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-movie-details',
@@ -19,7 +21,10 @@ export class MovieDetailsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private homeDataService: HomeDataService,
-    private http: HttpClient
+    private http: HttpClient,
+    private movieService: MovieService,
+    private router: Router,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -52,4 +57,27 @@ export class MovieDetailsComponent implements OnInit {
   getImage(path: string) {
     return this.baseImageUrl + path;
   }
+
+
+
+  toggleWishlist(movieId: number): void {
+  if (!this.authService.isLoggedIn()) {
+    localStorage.setItem('redirectAfterLogin', '/home');  // Redirect after heart click
+    this.router.navigate(['/login']);
+    return;
+  }
+
+  if (this.movieService.isInWishlist(movieId)) {
+    this.movieService.removeFromWishlist(movieId);
+  } else {
+    this.movieService.addToWishlist(movieId);
+  }
+}
+
+
+  // Check if movie is in wishlist (for heart icon state)
+  isInWishlist(movieId: number): boolean {
+    return this.movieService.isInWishlist(movieId);
+  }
+
 }

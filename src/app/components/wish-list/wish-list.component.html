@@ -5,7 +5,7 @@
 <main>
   <div class="wishlist-container" *ngIf="!isEmpty; else emptyMessage">
     <div class="movie-card" *ngFor="let movie of movies">
-      <img [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" [alt]="movie.title" />
+      <img (click)="getMovieDetails(movie.id)"  [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" [alt]="movie.title" />
       <h3>{{ movie.title }}</h3>
       <button class="remove-btn" (click)="removeFromWishlist(movie.id)">Remove</button>
     </div>
@@ -14,3 +14,4 @@
     <p class="empty-message">Your wishlist is empty.</p>
   </ng-template>
 </main>
+
