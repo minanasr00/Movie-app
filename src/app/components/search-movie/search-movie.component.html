@@ -4,7 +4,7 @@
     <div class="row" *ngIf="movies.length > 0">
       <div *ngFor="let movie of movies" class="col-md-3 mb-4">
         <div class="card h-100">
-          <img *ngIf="movie.poster_path" class="card-img-top" [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" alt="poster">
+          <img *ngIf="movie.poster_path" class="card-img-top" (click)="getMovieDetails(movie.id)" [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" alt="poster">
           <div class="card-body">
             <h5 class="card-title">{{ movie.title }}</h5>
             <p class="card-text">{{ movie.overview | slice:0:100 }}...</p>
