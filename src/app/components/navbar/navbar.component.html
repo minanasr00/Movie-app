@@ -1,5 +1,33 @@
-<nav id="navbar-example2" class="navbar bg-warning px-3 mb-3">
+
+<nav id="navbar-example2" class="navbar bg-warning px-3 mb-3 justify-content-between">
   <a class="navbar-brand" routerLink=''>movieApp</a>
+
+  <ul class="navbar-nav d-flex flex-row align-items-center ms-auto">
+    
+    <!-- Show Sign Up and Login if not logged in -->
+    @if (!isLoggedIn) {
+      <li class="nav-item me-3">
+        <a routerLink="/register" routerLinkActive="active" class="nav-link text-dark">Sign Up</a>
+      </li>
+      <li class="nav-item me-3">
+        <a routerLink="/login" routerLinkActive="active" class="nav-link text-dark">Login</a>
+      </li>
+    }
+     @else {
+      <!-- If logged in, show user and logout -->
+         <li class="nav-item me-3">
+      <a routerLink="/user" routerLinkActive="active" class="nav-link text-dark">User</a>
+    </li>
+      <li class="nav-item me-3">
+        <a routerLink="/profile" routerLinkActive="active" class="nav-link text-dark">{{ username }}</a>
+      </li>
+      <li class="nav-item me-3">
+        <a href="javascript:void(0)" class="nav-link text-dark" (click)="logout()">Logout</a>
+      </li>
+    }
+
+    <!-- Language dropdown (after login/signup) -->
+
   <ul class="nav nav-pills d-flex align-items-center">
     <li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle text-black" data-bs-toggle="dropdown"  role="button" aria-expanded="false">language</a>
@@ -11,9 +39,13 @@
         <li><a class="dropdown-item" #a5 (click)="sendDataTOHome(a5.text)" >it-IT</a></li>
         <li><a class="dropdown-item" #a6 (click)="sendDataTOHome(a6.text)" >zh-CN</a></li>
       </ul>
-    </li>
+      </li>
+      </ul>
+
     <li class="nav-item">
-      <a class="nav-link text-black" routerLink="/wish-list" ><i class="bi bi-heart-fill fs-4 me-1"></i><span class="fs-5">watchlist</span></a>
+      <a class="nav-link text-black d-flex align-items-center" routerLink="/wish-list" >
+        <i class="bi bi-heart-fill fs-4 me-1"></i><span class="fs-5">watchlist</span>
+      </a>
     </li>
   </ul>
 </nav>

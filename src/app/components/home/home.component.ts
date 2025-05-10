@@ -7,6 +7,7 @@ import { SharedataService } from '../../services/sharedata.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MovieService } from '../../services/movie.service';
+import { AuthService } from '../../services/auth.service';
 
 export interface Movie {
   id: number;
@@ -33,7 +34,7 @@ export class HomeComponent {
 
 
 
-  constructor(private HomeDataService: HomeDataService,private router: Router ,private sharedata: SharedataService ,private movieService: MovieService) {
+  constructor(private HomeDataService: HomeDataService,private router: Router ,private sharedata: SharedataService ,private movieService: MovieService, private authService: AuthService) {
     this.movies$ = this.HomeDataService.getMovies().pipe(
       tap((movies$: Movie[]) => {
         console.log(movies$);
@@ -81,13 +82,20 @@ export class HomeComponent {
     }
   }
 
-    toggleWishlist(movieId: number): void {
-    if (this.movieService.isInWishlist(movieId)) {
-      this.movieService.removeFromWishlist(movieId);
-    } else {
-      this.movieService.addToWishlist(movieId);
-    }
+toggleWishlist(movieId: number): void {
+  if (!this.authService.isLoggedIn()) {
+    localStorage.setItem('redirectAfterLogin', '/home');  // Redirect after heart click
+    this.router.navigate(['/login']);
+    return;
   }
+
+  if (this.movieService.isInWishlist(movieId)) {
+    this.movieService.removeFromWishlist(movieId);
+  } else {
+    this.movieService.addToWishlist(movieId);
+  }
+}
+
 
   // Check if movie is in wishlist (for heart icon state)
   isInWishlist(movieId: number): boolean {

@@ -1,0 +1,136 @@
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+  <div class="card p-4 shadow-sm" style="width: 100%; max-width: 400px;">
+    
+    <!-- User icon -->
+    <div class="text-center mb-3">
+      <div class="avatar-wrapper">
+      <img
+        src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
+        class="rounded-circle"
+        alt="User Avatar"
+        style="width: 72px; height: 72px;"
+      />
+      </div>
+      <h5 class="mt-3">User Sign Up</h5>
+    </div>
+
+    <!-- Sign Up Form -->
+    @if (!isSuccessful) {
+    <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+
+      <!-- Username -->
+<div class="mb-3">
+  <input
+    type="text"
+    class="form-control"
+    placeholder="User ID"
+    name="username"
+    [(ngModel)]="form.username"
+    required
+    minlength="3"
+    maxlength="20"
+    pattern="^[a-zA-Z0-9_]+$"
+    #username="ngModel"
+    [ngClass]="{ 'is-invalid': f.submitted && username.errors }"
+  />
+  @if (username.errors && f.submitted) {
+  <div class="invalid-feedback">
+    @if (username.errors['required']) {
+    <div>Username is required</div>
+    }
+    @if (username.errors['minlength']) {
+    <div>Must be at least 3 characters</div>
+    }
+    @if (username.errors['maxlength']) {
+    <div>Must be no more than 20 characters</div>
+    }
+    @if (username.errors['pattern']) {
+    <div>Only letters, numbers, and underscores are allowed</div>
+    }
+  </div>
+  }
+</div>
+
+      <!-- Email -->
+<div class="mb-3">
+  <input
+    type="email"
+    class="form-control"
+    placeholder="Email (only @gmail.com allowed)"
+    name="email"
+    [(ngModel)]="form.email"
+    required
+    pattern="^[a-zA-Z0-9._%+-]+@gmail\.com$"
+    #email="ngModel"
+    [ngClass]="{ 'is-invalid': f.submitted && email.errors }"
+  />
+  @if (email.errors && f.submitted) {
+  <div class="invalid-feedback">
+    @if (email.errors['required']) {
+    <div>Email is required</div>
+    }
+    @if (email.errors['pattern']) {
+    <div>Email must end with gmail.com</div>
+    }
+  </div>
+  }
+</div>
+
+     <!-- Password -->
+<div class="mb-3 position-relative">
+  <input
+    [type]="showPassword ? 'text' : 'password'"
+    class="form-control pe-5"
+    placeholder="Password"
+    name="password"
+    [(ngModel)]="form.password"
+    required
+    minlength="6"
+    #password="ngModel"
+    [ngClass]="{ 'is-invalid': f.submitted && password.errors }"
+  />
+  <!-- Toggle Button -->
+  <button
+    type="button"
+    class="btn btn-sm position-absolute top-50 end-0 translate-middle-y me-2 border-0 bg-transparent"
+    (click)="togglePasswordVisibility()"
+    tabindex="-1"
+  >
+    <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
+  </button>
+
+  <!-- Validation -->
+  @if (password.errors && f.submitted) {
+  <div class="invalid-feedback">
+    @if (password.errors['required']) {
+    <div>Password is required</div>
+    }
+    @if (password.errors['minlength']) {
+    <div>Password must be at least 6 characters</div>
+    }
+  </div>
+  }
+</div>
+
+
+      <!-- Submit Button -->
+      <div class="d-grid">
+        <button class="btn btn-dark">SIGN UP</button>
+      </div>
+
+      <!-- Error Message -->
+      @if (f.submitted && isSignUpFailed) {
+      <div class="alert alert-warning mt-3">
+        Signup failed!<br />{{ errorMessage }}
+      </div>
+      }
+
+    </form>
+    } @else {
+    <div class="alert alert-success text-center">
+      Your registration is successful!
+    </div>
+    }
+
+  </div>
+</div>
