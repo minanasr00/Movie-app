@@ -1,1 +1,22 @@
-<p>search-movie works!</p>
+<div class="container mt-4">
+    <h3 class="mb-3">Results for "{{ query }}"</h3>
+  
+    <div class="row" *ngIf="movies.length > 0">
+      <div *ngFor="let movie of movies" class="col-md-3 mb-4">
+        <div class="card h-100">
+          <img *ngIf="movie.poster_path" class="card-img-top" [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" alt="poster">
+          <div class="card-body">
+            <h5 class="card-title">{{ movie.title }}</h5>
+            <p class="card-text">{{ movie.overview | slice:0:100 }}...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div *ngIf="loaded && movies.length === 0">
+      <p>No movies found for "{{ query }}".</p>
+    </div>
+  
+    <pagination-controls (pageChange)="onPageChange($event)" [totalItems]="totalResults" [itemsPerPage]="itemsPerPage"></pagination-controls>
+  </div>
+  
