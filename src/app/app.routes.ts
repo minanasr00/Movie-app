@@ -7,7 +7,7 @@ import { SearchMovieComponent } from './components/search-movie/search-movie.com
 export const routes: Routes = [
   { path: "", component: HomeComponent ,title:"Movie App" },
   { path: "wish-list", component: WishlistComponent },
-  { path: "movie-details/:id", component: MovieDetailsComponent },
+  { path: "movie/:id", component: MovieDetailsComponent },
   {path: "search", component: SearchMovieComponent},
   {path:"**" , redirectTo : '' ,pathMatch:"full" }
 ];
