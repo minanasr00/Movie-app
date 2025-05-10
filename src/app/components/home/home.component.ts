@@ -3,6 +3,8 @@ import { Component, OnInit, viewChild } from '@angular/core';;
 import { HomeDataService } from './../../services/home-data.service';
 import { Observable, tap } from 'rxjs';
 import { NavbarComponent } from '../navbar/navbar.component';
+import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 export interface Movie {
   id: number;
@@ -16,7 +18,7 @@ export interface Movie {
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule],
+  imports: [FormsModule ,CommonModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -27,7 +29,7 @@ export class HomeComponent {
   count !: number;
   language !: string
 
-  constructor(private HomeDataService: HomeDataService) {
+  constructor(private HomeDataService: HomeDataService,private router: Router) {
     this.movies$ = this.HomeDataService.getMovies().pipe(
       tap((movies$: Movie[]) => {
         console.log(movies$);
@@ -59,6 +61,13 @@ export class HomeComponent {
   getMovieDetails(id: number) {
     console.log(id);
 
+  }
+
+  searchMovie() {
+    const query = this.title.trim();
+    if (query) {
+      this.router.navigate(['/results', query]);
+    }
   }
 
 }
