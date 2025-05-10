@@ -8,6 +8,6 @@ export const routes: Routes = [
   { path: "", component: HomeComponent ,title:"Movie App" },
   { path: "wish-list", component: WishListComponent },
   { path: "movie-details/:id", component: MovieDetailsComponent },
-  {path: "search/:query", component: SearchMovieComponent},
+  {path: "search", component: SearchMovieComponent},
   {path:"**" , redirectTo : '' ,pathMatch:"full" }
 ];

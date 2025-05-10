@@ -17,6 +17,9 @@
       <p>No movies found for "{{ query }}".</p>
     </div>
 
-    <pagination-controls (pageChange)="onPageChange($event)" [totalItems]="totalResults" [itemsPerPage]="itemsPerPage"></pagination-controls>
+    <pagination-controls 
+    (pageChange)="onPageChange($event)"
+    [responsive]="true">
+  </pagination-controls>
   </div>
   

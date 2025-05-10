@@ -30,7 +30,7 @@ export class HomeComponent {
   count !: number;
   language !: string
 
-  title: string = '';
+  searchQuery: string = '';
 
   constructor(private HomeDataService: HomeDataService,private router: Router ,private sharedata: SharedataService ) {
     this.movies$ = this.HomeDataService.getMovies().pipe(
@@ -77,11 +77,9 @@ export class HomeComponent {
 
   }
 
-  searchMovie(input:string) {
-    const query = input;
-    console.log(query);
-    if (query) {
-      this.router.navigate(['/search', query]);
+  onSearch(): void{
+    if (this.searchQuery.trim()) {
+      this.router.navigate(['/search'], { queryParams: { q: this.searchQuery } });
     }
   }
 

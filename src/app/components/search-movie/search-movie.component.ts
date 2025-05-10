@@ -1,7 +1,8 @@
+import { Page } from './../../../../node_modules/ngx-pagination/lib/pagination-controls.directive.d';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { HomeDataService } from 'src/app/services/home-data.service';
+import { HomeDataService } from '../../services/home-data.service';
 import { FormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 
@@ -14,30 +15,28 @@ import { NgxPaginationModule } from 'ngx-pagination';
 export class SearchMovieComponent implements OnInit {
   query = '';
   movies: any[] = [];
-  totalResults = 0;
-  currentPage = 1;
-  itemsPerPage = 20;
-  loaded = false;
-  constructor(private route: ActivatedRoute,  private homeDataService: HomeDataService) { }
+  page: number = 1;
+  loaded:boolean = false;
+  constructor(private route: ActivatedRoute,  private movieService: HomeDataService) { }
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      this.query = params['query'];
-      this.currentPage = 1;
-      this.fetchMovies();
+    this.route.queryParams.subscribe(params => {
+      this.query = params['q'] || '';
+      this.page = 1;
+      this.searchMovies();
     });
   }
 
-  fetchMovies(): void {
-    this.homeDataService.searchMovies(this.query, this.currentPage).subscribe(data => {
+  searchMovies(): void {
+    this.movieService.searchMovies(this.query, this.page).subscribe(data => {
       this.movies = data.results;
-      this.totalResults = data.total_results;
       this.loaded = true;
     });
   }
 
+
   onPageChange(page: number) {
-    this.currentPage = page;
-    this.fetchMovies();
+    this.page = page;
+    this.searchMovies();
   }
 }

@@ -34,6 +34,16 @@ private apiKey="eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3NmJkNzA4ZmJiNTM1NTU2YjdiZDVhNmN
     console.error(errorMessage);
     return throwError(() => new Error(errorMessage));
   }
+
+  searchMovies(query: string, page: number): Observable<any> {
+    const url = `https://api.themoviedb.org/3/search/movie?query=${query}&page=${page}`;
+    return this.http.get(url, {
+      headers: {
+        Authorization: `Bearer ${this.apiKey}`
+      }
+    });
+  }
+  
 }
 
 
