@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
         this.isLoggedIn = true;
         this.roles = this.storageService.getUser().roles;
         // ✅ Redirect to saved URL or default to /home
-      const redirectUrl = this.redirectService.getRedirectUrl() || '/wish-list';
+      const redirectUrl = this.redirectService.getRedirectUrl() || '/home';
       this.redirectService.clearRedirectUrl();
       this.router.navigate([redirectUrl]);
       },

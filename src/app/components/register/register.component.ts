@@ -32,7 +32,7 @@ togglePasswordVisibility() {
 
   constructor(private authService: AuthService, private router: Router ,private storageService: StorageService,) { }
 
- onSubmit(): void {
+onSubmit(): void {
   if (!this.form.username || !this.form.email || !this.form.password) {
     this.errorMessage = 'All fields are required';
     this.isSignUpFailed = true;
@@ -42,17 +42,24 @@ togglePasswordVisibility() {
   const { username, email, password } = this.form;
 
   this.authService.register(username, email, password).subscribe({
-    next: user => {
-      // ✅ Save actual user data returned
-      this.storageService.saveUser(user);
-      this.isSuccessful = true;
-      this.isSignUpFailed = false;
-      
-      // roles: string[] is not used here, unless you add roles to the user object
-      this.router.navigate(['/home']);
+    next: res => {
+      // After successful registration, proceed to login
+      this.authService.login(username, password).subscribe({
+        next: loginRes => {
+          this.storageService.saveUser(loginRes.user);
+          this.isSuccessful = true;
+          this.isSignUpFailed = false;
+          this.router.navigate(['/home']);
+        },
+        error: loginErr => {
+          console.error('Login after registration failed:', loginErr);
+          this.errorMessage = loginErr.error?.message || 'Login failed.';
+          this.isSignUpFailed = true;
+        }
+      });
     },
     error: err => {
-      console.error('Signup failed:', err);
+      console.error('Registration failed:', err);
       this.errorMessage = err.error?.message || 'Registration failed.';
       this.isSignUpFailed = true;
     }
