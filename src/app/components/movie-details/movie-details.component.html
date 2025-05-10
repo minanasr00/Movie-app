@@ -1,1 +1,86 @@
-<p>movie-details works!</p>
+<!-- Movie Details -->
+<div class="container py-5">
+  <div class="row">
+    <!-- Poster -->
+    <div class="col-md-4">
+      <img
+        [src]="'https://image.tmdb.org/t/p/w500' + movieDetails.poster_path"
+        class="img-fluid rounded shadow"
+        alt="{{ movieDetails?.title }}"
+      />
+    </div>
+
+    <!-- Details -->
+    <div class="col-md-8">
+      <h2>{{ movieDetails?.title }}</h2>
+      <p class="text-muted">{{ movieDetails?.release_date }}</p>
+      <div class="mb-2">
+        <span class="me-2">⭐</span> {{ movieDetails?.vote_average }} ({{
+          movieDetails?.vote_count
+        }}
+        votes)
+      </div>
+      <p class="fs-5">{{ movieDetails?.overview }}</p>
+
+      <!-- Genres -->
+      <div class="mb-3">
+        <span
+          *ngFor="let genre of movieDetails?.genres"
+          class="badge bg-warning text-dark me-2"
+          >{{ genre.name }}</span
+        >
+      </div>
+
+      <p>
+        <strong>Duration:</strong> {{ movieDetails?.runtime }} Min.
+        &nbsp;|&nbsp; <strong>Language:</strong>
+        {{ movieDetails?.original_language | uppercase }}
+      </p>
+
+      <div class="my-3">
+        <img
+          *ngIf="movieDetails?.production_companies?.length"
+          [src]="getImage(movieDetails.production_companies[0]?.logo_path)"
+          alt="Studio"
+          height="40"
+        />
+      </div>
+
+      <a
+        *ngIf="movieDetails?.homepage"
+        [href]="movieDetails.homepage"
+        class="btn btn-outline-dark"
+        target="_blank"
+      >
+        🌐 Website
+      </a>
+    </div>
+  </div>
+
+  <!-- Recommendations -->
+  <div class="mt-5" *ngIf="recommendations.length > 0">
+    <h3>Recommendations</h3>
+    <div class="d-flex flex-nowrap overflow-auto gap-3 mt-3">
+      <div
+        class="card"
+        *ngFor="let rec of recommendations"
+        style="min-width: 150px; cursor: pointer"
+      >
+        <img
+          [src]="getImage(rec.poster_path)"
+          class="card-img-top"
+          alt="{{ rec.title }}"
+        />
+        <div class="card-body p-2">
+          <h6 class="card-title mb-1 text-truncate">{{ rec.title }}</h6>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <a
+    routerLink="/src/app/components/home/home.component.html"
+    class="btn btn-outline-secondary mt-4"
+    >← Back to Home</a
+  >
+</div>

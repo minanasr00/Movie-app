@@ -1,4 +1,3 @@
-
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -17,7 +16,9 @@ export class SearchMovieComponent implements OnInit {
   movies: any[] = [];
   page: number = 1;
   loaded:boolean = false;
-  constructor(private route: ActivatedRoute,  private movieService: HomeDataService) { }
+
+  constructor(private route: ActivatedRoute, 
+    private movieService: HomeDataService) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {

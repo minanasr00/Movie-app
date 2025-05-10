@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, DoCheck, effect, Input, OnInit, } from '@angular/core';;
+import { Component, DoCheck, effect, Input, OnInit } from '@angular/core';
 import { HomeDataService } from './../../services/home-data.service';
 import { Observable, tap } from 'rxjs';
 import { NavbarComponent } from '../navbar/navbar.component';
@@ -19,13 +19,12 @@ export interface Movie {
 
 @Component({
   selector: 'app-home',
-  imports: [FormsModule ,CommonModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  styleUrl: './home.component.css',
 })
-
 export class HomeComponent {
-  movies$ !: Observable<Movie[]>;
+  movies$!: Observable<Movie[]>;
   pageNumber: number = 1;
   count !: number;
   language !: string
@@ -39,16 +38,16 @@ export class HomeComponent {
         console.log(movies$);
         this.count = movies$.length;
       })
-    )
+    );
     effect(() => {
       this.language = this.sharedata.data();
       console.log('Stored data in Sibling2:', this.language);
-      this.movies$ = this.HomeDataService.getMovies(this.language, this.pageNumber)
-
+      this.movies$ = this.HomeDataService.getMovies(
+        this.language,
+        this.pageNumber
+      );
     });
-
   }
-
 
   changePage(page: number, count: number, li: HTMLLIElement) {
     console.log(this.language);
@@ -61,21 +60,21 @@ export class HomeComponent {
     }
     this.pageNumber = page;
     if (page < 1) {
-      this.movies$ = this.HomeDataService.getMovies(this.language, 1)
+      this.movies$ = this.HomeDataService.getMovies(this.language, 1);
     } else if (page > count + 1) {
-      this.movies$ = this.HomeDataService.getMovies(this.language, count)
+      this.movies$ = this.HomeDataService.getMovies(this.language, count);
     } else {
-      this.movies$ = this.HomeDataService.getMovies(this.language, page)
-     }
+      this.movies$ = this.HomeDataService.getMovies(this.language, page);
+    }
   }
 
-  addToWishlist(i:HTMLElement,id:number) {
+  addToWishlist(i: HTMLElement, id: number) {
     i.classList.toggle('text-warning');
   }
 
   getMovieDetails(id: number) {
     console.log(id);
-
+    this.router.navigate(['/movie', id]);
   }
 
   onSearch(): void{
@@ -83,5 +82,4 @@ export class HomeComponent {
       this.router.navigate(['/search'], { queryParams: { q: this.searchQuery } });
     }
   }
-
 }
