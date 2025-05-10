@@ -1,18 +1,4 @@
-/* .movie-poster {
-  width: 120px;
-  height: 170px;
-  object-fit: cover;
-  border-radius: 10px;
-}
 
-.card {
-  border-radius: 15px;
-  transition: box-shadow 0.3s;
-}
-
-.card:hover {
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-} */
 header {
   background-color: #333;
   color: white;
