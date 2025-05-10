@@ -30,7 +30,9 @@ export class HomeComponent {
   count !: number;
   language !: string
 
-  constructor(private HomeDataService: HomeDataService,private router: Router ,private sharedata: SharedataService) {
+  title: string = '';
+
+  constructor(private HomeDataService: HomeDataService,private router: Router ,private sharedata: SharedataService ) {
     this.movies$ = this.HomeDataService.getMovies().pipe(
       tap((movies$: Movie[]) => {
         console.log(movies$);
@@ -50,7 +52,7 @@ export class HomeComponent {
   changePage(page: number, count: number, li: HTMLLIElement) {
     console.log(this.language);
 
-    li.classList.add('.page-item.active');
+    li.classList.add('page-item.active');
     if (page < 1) {
       page = 1;
     } else if (page > count) {
@@ -75,10 +77,11 @@ export class HomeComponent {
 
   }
 
-  searchMovie() {
-    const query = this.title.trim();
+  searchMovie(input:string) {
+    const query = input;
+    console.log(query);
     if (query) {
-      this.router.navigate(['/results', query]);
+      this.router.navigate(['/search', query]);
     }
   }
 

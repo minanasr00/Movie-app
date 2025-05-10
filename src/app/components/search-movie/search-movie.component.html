@@ -1,6 +1,6 @@
 <div class="container mt-4">
     <h3 class="mb-3">Results for "{{ query }}"</h3>
-  
+
     <div class="row" *ngIf="movies.length > 0">
       <div *ngFor="let movie of movies" class="col-md-3 mb-4">
         <div class="card h-100">
@@ -12,11 +12,11 @@
         </div>
       </div>
     </div>
-  
+
     <div *ngIf="loaded && movies.length === 0">
       <p>No movies found for "{{ query }}".</p>
     </div>
-  
+
     <pagination-controls (pageChange)="onPageChange($event)" [totalItems]="totalResults" [itemsPerPage]="itemsPerPage"></pagination-controls>
   </div>
   
