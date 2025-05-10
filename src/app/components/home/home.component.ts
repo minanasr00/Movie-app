@@ -29,8 +29,9 @@ export class HomeComponent {
   pageNumber: number = 1;
   count !: number;
   language !: string
-
   searchQuery: string = '';
+
+  
 
   constructor(private HomeDataService: HomeDataService,private router: Router ,private sharedata: SharedataService ) {
     this.movies$ = this.HomeDataService.getMovies().pipe(

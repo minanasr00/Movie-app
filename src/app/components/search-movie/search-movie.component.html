@@ -16,7 +16,6 @@
     <div *ngIf="loaded && movies.length === 0">
       <p>No movies found for "{{ query }}".</p>
     </div>
-
     <pagination-controls 
     (pageChange)="onPageChange($event)"
     [responsive]="true">

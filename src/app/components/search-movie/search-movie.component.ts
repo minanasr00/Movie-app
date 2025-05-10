@@ -1,4 +1,4 @@
-import { Page } from './../../../../node_modules/ngx-pagination/lib/pagination-controls.directive.d';
+
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -8,7 +8,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
   selector: 'app-search-movie',
-  imports: [FormsModule, CommonModule, NgxPaginationModule],
+  imports: [ FormsModule, CommonModule, NgxPaginationModule],
   templateUrl: './search-movie.component.html',
   styleUrl: './search-movie.component.css'
 })
