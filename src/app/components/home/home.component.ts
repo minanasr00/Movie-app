@@ -6,6 +6,7 @@ import { NavbarComponent } from '../navbar/navbar.component';
 import { SharedataService } from '../../services/sharedata.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { MovieService } from '../../services/movie.service';
 
 export interface Movie {
   id: number;
@@ -30,9 +31,9 @@ export class HomeComponent {
   language !: string
   searchQuery: string = '';
 
-  
 
-  constructor(private HomeDataService: HomeDataService,private router: Router ,private sharedata: SharedataService ) {
+
+  constructor(private HomeDataService: HomeDataService,private router: Router ,private sharedata: SharedataService ,private movieService: MovieService) {
     this.movies$ = this.HomeDataService.getMovies().pipe(
       tap((movies$: Movie[]) => {
         console.log(movies$);
@@ -68,9 +69,6 @@ export class HomeComponent {
     }
   }
 
-  addToWishlist(i: HTMLElement, id: number) {
-    i.classList.toggle('text-warning');
-  }
 
   getMovieDetails(id: number) {
     console.log(id);
@@ -82,4 +80,18 @@ export class HomeComponent {
       this.router.navigate(['/search'], { queryParams: { q: this.searchQuery } });
     }
   }
+
+    toggleWishlist(movieId: number): void {
+    if (this.movieService.isInWishlist(movieId)) {
+      this.movieService.removeFromWishlist(movieId);
+    } else {
+      this.movieService.addToWishlist(movieId);
+    }
+  }
+
+  // Check if movie is in wishlist (for heart icon state)
+  isInWishlist(movieId: number): boolean {
+    return this.movieService.isInWishlist(movieId);
+  }
+
 }

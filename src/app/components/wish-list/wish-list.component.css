@@ -1,4 +1,4 @@
-.movie-poster {
+/* .movie-poster {
   width: 120px;
   height: 170px;
   object-fit: cover;
@@ -12,4 +12,64 @@
 
 .card:hover {
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+} */
+header {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 1rem;
+}
+
+.wishlist-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.movie-card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  text-align: center;
+}
+
+.movie-card img {
+  width: 100%;
+  height: auto;
+}
+
+.movie-card h3 {
+  font-size: 1.1rem;
+  margin: 10px 0;
+  padding: 0 10px;
+}
+
+.remove-btn {
+  background-color: #ff4444;
+  color: white;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 0.9rem;
+}
+
+.remove-btn:hover {
+  background-color: #cc0000;
+}
+
+.empty-message {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #666;
+}
+
+@media (max-width: 600px) {
+  .wishlist-container {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
 }

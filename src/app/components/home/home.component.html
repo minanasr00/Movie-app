@@ -17,13 +17,13 @@
       @if(movies$ |async; as movies ){
         @for ( movie of movies; track movie.id ) {
           <div class="col-xl-2 col-lg-3 col-md-4 col-sm-12 movie-card">
-            <div class="card mb-3 rounded-5" (click)="getMovieDetails(movie.id)">
-              <img [src]='"https://image.tmdb.org/t/p/original"+movie.poster_path' class="card-img-top" [alt]="movie.overview">
+            <div class="card mb-3 rounded-5" >
+              <img (click)="getMovieDetails(movie.id)" [src]='"https://image.tmdb.org/t/p/original"+movie.poster_path' class="card-img-top" [alt]="movie.overview">
               <div class="card-body position-relative">
                 <div class="mt-2 d-flex justify-content-between">
                   <h5 class="card-title">{{movie.title}}</h5>
                   <span class="wish-listIcon">
-                    <i class="bi bi-heart-fill fs-4" #i (click)="addToWishlist(i,movie.id)"></i>
+                    <i class="bi fs-4"  [ngClass]="isInWishlist(movie.id) ? 'bi-heart-fill text-warning' : 'bi-heart'" (click)="toggleWishlist(movie.id)"></i>
                   </span>
                 </div>
                 <p class="card-text text-muted">{{movie.release_date}}</p>

@@ -1,4 +1,4 @@
-<div class="container mt-4">
+<!-- <div class="container mt-4">
   <h3>Watch list</h3>
   <div class="row">
     <div *ngFor="let movie of movies; let i = index" class="col-md-6 mb-4">
@@ -21,4 +21,19 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
+<header>
+  <h1>My Movie Wishlist</h1>
+</header>
+<main>
+  <div class="wishlist-container" *ngIf="!isEmpty; else emptyMessage">
+    <div class="movie-card" *ngFor="let movie of movies">
+      <img [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" [alt]="movie.title" />
+      <h3>{{ movie.title }}</h3>
+      <button class="remove-btn" (click)="removeFromWishlist(movie.id)">Remove</button>
+    </div>
+  </div>
+  <ng-template #emptyMessage>
+    <p class="empty-message">Your wishlist is empty.</p>
+  </ng-template>
+</main>
