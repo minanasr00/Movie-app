@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HomeDataService } from '../../services/home-data.service';
 import { FormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -18,6 +18,7 @@ export class SearchMovieComponent implements OnInit {
   loaded:boolean = false;
 
   constructor(private route: ActivatedRoute, 
+    private router: Router,
     private movieService: HomeDataService) { }
 
   ngOnInit(): void {
@@ -40,4 +41,10 @@ export class SearchMovieComponent implements OnInit {
     this.page = page;
     this.searchMovies();
   }
+
+  //Go to movie details
+  getMovieDetails(id: number) {
+    console.log(id);
+    this.router.navigate(['/movie', id]);
+  }
 }
