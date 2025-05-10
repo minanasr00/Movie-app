@@ -4,8 +4,12 @@
     <li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle text-black" data-bs-toggle="dropdown"  role="button" aria-expanded="false">language</a>
       <ul class="dropdown-menu border border-warning bg-warning">
-        <li><a class="dropdown-item" (click)="language='en-Us'">us</a></li>
-        <li><a class="dropdown-item"(click)="language='ar'" >ar</a></li>
+        <li><a class="dropdown-item" #a1 (click)="sendDataTOHome(a1.text)" >en-US</a></li>
+        <li><a class="dropdown-item" #a2 (click)="sendDataTOHome(a2.text)" >ar-EG</a></li>
+        <li><a class="dropdown-item" #a3 (click)="sendDataTOHome(a3.text)" >zh-CN</a></li>
+        <li><a class="dropdown-item" #a4 (click)="sendDataTOHome(a4.text)" >fr-FR</a></li>
+        <li><a class="dropdown-item" #a5 (click)="sendDataTOHome(a5.text)" >it-IT</a></li>
+        <li><a class="dropdown-item" #a6 (click)="sendDataTOHome(a6.text)" >zh-CN</a></li>
       </ul>
     </li>
     <li class="nav-item">

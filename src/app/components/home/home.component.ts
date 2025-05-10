@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, viewChild } from '@angular/core';;
+import { Component, DoCheck, effect, Input, OnInit, } from '@angular/core';;
 import { HomeDataService } from './../../services/home-data.service';
 import { Observable, tap } from 'rxjs';
 import { NavbarComponent } from '../navbar/navbar.component';
+import { SharedataService } from '../../services/sharedata.service';
 
 export interface Movie {
   id: number;
@@ -27,15 +28,27 @@ export class HomeComponent {
   count !: number;
   language !: string
 
-  constructor(private HomeDataService: HomeDataService) {
-    this.movies$ = this.HomeDataService.getMovies().pipe(
+
+  constructor(private HomeDataService: HomeDataService, private sharedata: SharedataService) {
+    this.movies$ = this.HomeDataService.getMovies(this.language).pipe(
       tap((movies$: Movie[]) => {
         console.log(movies$);
         this.count = movies$.length;
       })
     )
+    effect(() => {
+      this.language = this.sharedata.data();
+      console.log('Stored data in Sibling2:', this.language);
+      this.movies$ = this.HomeDataService.getMovies(this.language, this.pageNumber)
+
+    });
+
   }
+
+
   changePage(page: number, count: number, li: HTMLLIElement) {
+    console.log(this.language);
+
     li.classList.add('.page-item.active');
     if (page < 1) {
       page = 1;
@@ -44,11 +57,11 @@ export class HomeComponent {
     }
     this.pageNumber = page;
     if (page < 1) {
-      this.movies$ = this.HomeDataService.getMovies("en-US", 1)
+      this.movies$ = this.HomeDataService.getMovies(this.language, 1)
     } else if (page > count + 1) {
-      this.movies$ = this.HomeDataService.getMovies("en-US", count)
+      this.movies$ = this.HomeDataService.getMovies(this.language, count)
     } else {
-      this.movies$ = this.HomeDataService.getMovies("en-US", page)
+      this.movies$ = this.HomeDataService.getMovies(this.language, page)
      }
   }
 
