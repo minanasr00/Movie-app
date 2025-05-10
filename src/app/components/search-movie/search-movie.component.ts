@@ -4,11 +4,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HomeDataService } from '../../services/home-data.service';
 import { FormsModule } from '@angular/forms';
-import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
   selector: 'app-search-movie',
-  imports: [FormsModule, CommonModule, NgxPaginationModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './search-movie.component.html',
   styleUrl: './search-movie.component.css'
 })
