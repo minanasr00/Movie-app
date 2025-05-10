@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { MovieService } from '../../services/movie.service';
 import { AuthService } from '../../services/auth.service';
 
+
 export interface Movie {
   id: number;
   title: string;
@@ -22,7 +23,7 @@ export interface Movie {
 @Component({
   selector: 'app-home',
   imports: [FormsModule, CommonModule],
-  templateUrl: './home.component.html',
+templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
 export class HomeComponent {
@@ -34,7 +35,7 @@ export class HomeComponent {
 
 
 
-  constructor(private HomeDataService: HomeDataService,private router: Router ,private sharedata: SharedataService ,private movieService: MovieService, private authService: AuthService) {
+  constructor(private HomeDataService: HomeDataService,private router: Router ,private sharedata: SharedataService ,private movieService: MovieService, private authService: AuthService, private AuthService: AuthService) {
     this.movies$ = this.HomeDataService.getMovies().pipe(
       tap((movies$: Movie[]) => {
         console.log(movies$);
@@ -49,6 +50,8 @@ export class HomeComponent {
         this.pageNumber
       );
     });
+
+
   }
 
   changePage(page: number, count: number, li: HTMLLIElement) {
@@ -100,6 +103,10 @@ toggleWishlist(movieId: number): void {
   // Check if movie is in wishlist (for heart icon state)
   isInWishlist(movieId: number): boolean {
     return this.movieService.isInWishlist(movieId);
+  }
+
+  logedin(): boolean {
+    return this.authService.isLoggedIn();
   }
 
 }

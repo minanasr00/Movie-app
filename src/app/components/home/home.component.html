@@ -22,7 +22,7 @@
               <div class="card-body position-relative">
                 <div class="mt-2 d-flex justify-content-between">
                   <h5 class="card-title">{{movie.title}}</h5>
-                  <span class="wish-listIcon">
+                  <span [ngClass]="logedin() ? 'd-flex':'d-none'" class="wish-listIcon">
                     <i class="bi fs-4"  [ngClass]="isInWishlist(movie.id) ? 'bi-heart-fill text-warning' : 'bi-heart'" (click)="toggleWishlist(movie.id)"></i>
                   </span>
                 </div>
