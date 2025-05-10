@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { MovieService } from 'src/app/services/movie.service';
+import { HomeDataService } from 'src/app/services/home-data.service';
 import { FormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 
@@ -29,7 +29,7 @@ export class SearchMovieComponent implements OnInit {
   }
 
   fetchMovies(): void {
-    this.movieService.searchMovies(this.query, this.currentPage).subscribe(data => {
+    this.homeDataService.searchMovies(this.query, this.currentPage).subscribe(data => {
       this.movies = data.results;
       this.totalResults = data.total_results;
       this.loaded = true;
