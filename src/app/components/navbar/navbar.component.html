@@ -3,7 +3,7 @@
   <a class="navbar-brand" routerLink=''>movieApp</a>
 
   <ul class="navbar-nav d-flex flex-row align-items-center ms-auto">
-    
+
     <!-- Show Sign Up and Login if not logged in -->
     @if (!isLoggedIn) {
       <li class="nav-item me-3">
@@ -28,10 +28,10 @@
 
     <!-- Language dropdown (after login/signup) -->
 
-  <ul class="nav nav-pills d-flex align-items-center">
-    <li class="nav-item dropdown">
+  <ul class="nav nav-pills d-flex align-items-center language position-absolute">
+    <li class="nav-item dropdown me-3">
       <a class="nav-link dropdown-toggle text-black" data-bs-toggle="dropdown"  role="button" aria-expanded="false">language</a>
-      <ul class="dropdown-menu border border-warning bg-warning">
+      <ul class="dropdown-menu border border-warning bg-warning position-absolute">
         <li><a class="dropdown-item" #a1 (click)="sendDataTOHome(a1.text)" >en-US</a></li>
         <li><a class="dropdown-item" #a2 (click)="sendDataTOHome(a2.text)" >ar-EG</a></li>
         <li><a class="dropdown-item" #a3 (click)="sendDataTOHome(a3.text)" >zh-CN</a></li>
