@@ -4,6 +4,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import { SharedataService } from './../../services/sharedata.service';
 import { StorageService } from './../../services/storage.service';
 import { AuthService } from './../../services/auth.service';
+import { MovieService } from '../../services/movie.service';
 @Component({
   selector: 'app-navbar',
   imports: [CommonModule, RouterLink],
@@ -11,10 +12,11 @@ import { AuthService } from './../../services/auth.service';
   styleUrl: './navbar.component.css'
 })
 
-export class NavbarComponent implements OnInit {
-  
-  constructor(private Sharedata: SharedataService ,private storageService: StorageService, private authService: AuthService) {}
-     
+export class NavbarComponent implements OnInit , DoCheck {
+
+movieLength !: number | undefined ;
+  constructor(private Sharedata: SharedataService ,private storageService: StorageService, private authService: AuthService , private wishlist :MovieService) {}
+
   language: string = 'en-US';
   sendDataTOHome(language: string) {
     this.Sharedata.setData(language);
@@ -33,6 +35,7 @@ export class NavbarComponent implements OnInit {
         const user = this.storageService.getUser();
         this.roles = user.roles;
 
+
         this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
         this.showModeratorBoard = this.roles.includes('ROLE_MODERATOR');
         this.username = user.username;
@@ -42,6 +45,16 @@ export class NavbarComponent implements OnInit {
         this.username = undefined;
       }
     });
+  }
+  ngDoCheck(): void {
+    if (this.isLoggedIn) {
+      this.movieLength = this.wishlist.getWishlistCount()
+      if (this.movieLength === 0) {
+        this.movieLength = undefined;
+      }
+    } else {
+      this.movieLength = undefined;
+    }
   }
 
   logout(): void {

@@ -57,4 +57,8 @@ export class MovieService {
     isInWishlist(movieId: number): boolean {
     return this.getWishlist().includes(movieId);
   }
+
+  getWishlistCount(): number {
+    return this.getWishlist().length;
+  }
 }
